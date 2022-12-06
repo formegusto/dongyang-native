@@ -1,10 +1,8 @@
 import styled from "styled-components/native";
-import { TodosContent } from "./TodosContent";
-import { TodosInputs } from "./TodosInputs";
 import Constants from "expo-constants";
 import { useHeaderHeight } from "@react-navigation/stack";
 
-function TodosComponent() {
+function TodosComponent({ children }) {
   const headerHeight = useHeaderHeight();
 
   return (
@@ -12,8 +10,7 @@ function TodosComponent() {
       <KeyboardView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={headerHeight}>
-        <TodosContent />
-        <TodosInputs />
+        {children}
       </KeyboardView>
     </Container>
   );
@@ -29,3 +26,5 @@ const KeyboardView = styled.KeyboardAvoidingView`
 `;
 
 export { TodosComponent };
+export * from "./TodosContent";
+export * from "./TodosInputs";
