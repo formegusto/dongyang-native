@@ -20,12 +20,24 @@ const ButtonText = styled.Text`
   color: #fff;
 `;
 
+const IconButtonStyle = styled.View`
+  margin: 0 8px 0 0;
+`;
+
 export function Button({ children, ...buttonProps }) {
   return (
     <Pressable {...buttonProps}>
       <ButtonStyle>
         <ButtonText>{children}</ButtonText>
       </ButtonStyle>
+    </Pressable>
+  );
+}
+
+export function IconButton({ children, ...buttonProps }) {
+  return (
+    <Pressable {...buttonProps}>
+      <IconButtonStyle>{children}</IconButtonStyle>
     </Pressable>
   );
 }

@@ -1,54 +1,67 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import produce from "immer";
 import _ from "lodash";
 import React from "react";
+import { Text } from "react-native";
 import { TodosComponent, TodosContent, TodosInputs } from "../components";
-import { TodoItem } from "../components/Todos/TodoItem";
 
 function TodosContainer() {
-  const [todos, setTodos] = React.useState([
-    {
-      id: 1,
-      todo: "밥 먹기",
-      done: false,
-    },
+  const [todos, setTodos] = React.useState([]);
 
-    {
-      id: 2,
-      todo: "밥 먹기",
-      done: false,
-    },
+  const onAppend = React.useCallback((title) => {
+    if (title !== "") {
+      setTodos((prev) => [
+        ...prev,
+        {
+          id: new Date().getTime().toString(),
+          todo: title,
+          done: false,
+        },
+      ]);
+    }
+  }, []);
 
-    {
-      id: 3,
-      todo: "밥 먹기",
-      done: false,
+  const onChangeStatus = React.useCallback(
+    (item) => {
+      setTodos(
+        produce(todos, (draft) => {
+          const idx = todos.indexOf(item);
+          draft[idx].done = !draft[idx].done;
+        })
+      );
     },
+    [todos]
+  );
 
-    {
-      id: 4,
-      todo: "밥 먹기",
-      done: false,
+  const onDelete = React.useCallback(
+    (_id) => {
+      setTodos(_.reject(todos, ({ id }) => id === _id));
     },
-  ]);
-  const [input, setInput] = React.useState("");
+    [todos]
+  );
 
-  const onChange = React.useCallback((value) => {
-    setInput(value);
+  React.useEffect(() => {
+    if (todos.length > 0) AsyncStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  React.useEffect(() => {
+    AsyncStorage.getItem("todos")
+      .then((data) => {
+        if (data !== null) setTodos(JSON.parse(data));
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   }, []);
 
   return (
     <TodosComponent>
-      <TodosContent>
-        {_.map(todos, (todo) => (
-          <TodoItem key={todo.id} {...todo} />
-        ))}
-        {_.map(todos, (todo) => (
-          <TodoItem key={todo.id} {...todo} />
-        ))}
-        {_.map(todos, (todo) => (
-          <TodoItem key={todo.id} {...todo} />
-        ))}
-      </TodosContent>
-      <TodosInputs input={input} onChange={onChange} />
+      <TodosContent
+        todos={todos}
+        onChangeStatus={onChangeStatus}
+        onDelete={onDelete}
+      />
+      <TodosInputs onPress={onAppend} />
     </TodosComponent>
   );
 }

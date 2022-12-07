@@ -1,14 +1,21 @@
+import React from "react";
 import styled from "styled-components/native";
 
-function TodosInputs({ input, onChange }) {
+function TodosInputs({ onPress }) {
+  const [input, setInput] = React.useState("");
+
+  const onChange = React.useCallback((value) => {
+    setInput(value);
+  }, []);
+
   return (
     <Wrap>
       <Input
         value={input}
-        onChange={onChange}
+        onChangeText={onChange}
         placeholder="할 일을 입력해주세요."
       />
-      <Button title="전송" />
+      <Button title="전송" onPress={() => onPress(input)} />
     </Wrap>
   );
 }

@@ -1,15 +1,33 @@
+import { CheckIcon, CloseIcon } from "native-base";
+import React from "react";
 import styled from "styled-components/native";
+import { IconButton } from "../../styles";
 import { randomIosColors } from "../../utils";
 
-function TodoItem({ id, todo, done }) {
+function TodoItem({ id, todo, done, onCheck, onDelete }) {
+  const refRanColor = React.useRef(randomIosColors());
+
   return (
-    <Wrap bgColor={randomIosColors()}>
-      <Title>{todo}</Title>
+    <Wrap bgColor={done ? "#ccc" : refRanColor.current}>
+      <IconWrap>
+        <IconButton onPress={onCheck}>
+          <CheckIcon size="6" color="white" />
+        </IconButton>
+        <IconButton onPress={onDelete}>
+          <CloseIcon size="6" color="white" />
+        </IconButton>
+      </IconWrap>
+      <Title>
+        {todo}
+        {done}
+      </Title>
     </Wrap>
   );
 }
 
 const Wrap = styled.View`
+  position: relative;
+
   height: 128px;
   border-radius: 8px;
 
@@ -27,6 +45,14 @@ const Title = styled.Text`
   font-weight: 700;
 
   color: #eee;
+`;
+
+const IconWrap = styled.View`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+
+  flex-direction: row;
 `;
 
 export { TodoItem };
