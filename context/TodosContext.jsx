@@ -46,7 +46,7 @@ export function TodosProvider({ children }) {
   );
 
   React.useEffect(() => {
-    if (todos.length > 0) AsyncStorage.setItem("todos", JSON.stringify(todos));
+    if (todos) AsyncStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   React.useEffect(() => {

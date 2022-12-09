@@ -1,6 +1,5 @@
 import _ from "lodash";
-import { Pressable } from "react-native";
-import styled from "styled-components/native";
+import styled from "styled-components";
 import { Button } from "../../styles";
 import { LottoItem } from "./LottoItem";
 
@@ -12,14 +11,15 @@ function LottoComponent({ items, onPress }) {
           <LottoItem key={`item-${idx}`} item={item} />
         ))}
       </ItemWrap>
-      <Button onPress={onPress}>재추첨</Button>
+      <Button onPress={onPress} margin={24}>
+        재추첨
+      </Button>
     </Wrap>
   );
 }
 
 const Wrap = styled.View`
-  width: 100%;
-  height: 100%;
+  flex: 1;
 
   align-items: center;
   justify-content: center;

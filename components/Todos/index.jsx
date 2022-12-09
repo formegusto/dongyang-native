@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from "styled-components";
 import Constants from "expo-constants";
 import { useHeaderHeight } from "@react-navigation/stack";
 

@@ -1,10 +1,10 @@
 import { NativeBaseProvider } from "native-base";
-import { Pages } from "./screens";
+import { Screens } from "./screens";
 
 function App() {
   return (
     <NativeBaseProvider>
-      <Pages />
+      <Screens />
     </NativeBaseProvider>
   );
 }

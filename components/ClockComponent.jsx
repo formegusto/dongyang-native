@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from "styled-components";
 
 const image = { url: "https://placeimg.com/1280/1280/nature" };
 

@@ -1,5 +1,5 @@
 import { Pressable } from "react-native";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components";
 
 const ButtonStyle = styled.View`
   background-color: rgb(69, 121, 252);
@@ -11,7 +11,11 @@ const ButtonStyle = styled.View`
   justify-content: center;
   align-items: center;
 
-  margin: 24px 0 0;
+  ${({ margin }) =>
+    margin &&
+    css`
+      margin: ${margin}px 0 0;
+    `};
 `;
 
 const ButtonText = styled.Text`

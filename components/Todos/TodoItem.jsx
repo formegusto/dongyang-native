@@ -1,6 +1,6 @@
 import { CheckIcon, CloseIcon } from "native-base";
 import React from "react";
-import styled from "styled-components/native";
+import styled from "styled-components";
 import { IconButton } from "../../styles";
 import { randomIosColors } from "../../utils";
 

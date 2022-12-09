@@ -1,10 +1,13 @@
+import { DateTime } from "luxon";
 import styled from "styled-components";
 
 function DiaryItem({ content, date }) {
   return (
     <Wrap>
       <DateWrap>
-        <DateText>{date}</DateText>
+        <DateText>
+          {DateTime.fromISO(date).toFormat("yyyy년 MM월 dd일")}
+        </DateText>
       </DateWrap>
       <ContentWrap>
         <ContentText>{content}</ContentText>
@@ -31,7 +34,7 @@ const DateWrap = styled.View`
 `;
 const DateText = styled.Text`
   font-size: 18px;
-  font-weight: bold;
+  font-weight: regular;
   color: #ccc;
   margin: 0 0 0 2px;
 `;
@@ -42,6 +45,7 @@ const ContentWrap = styled.View`
 `;
 const ContentText = styled.Text`
   color: #fff;
+  font-weight: bold;
 `;
 
 export { DiaryItem };
