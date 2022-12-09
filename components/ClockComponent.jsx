@@ -5,17 +5,24 @@ const image = { url: "https://placeimg.com/1280/1280/nature" };
 function ClockComponent({ date }) {
   return (
     <Container source={image} resizeMode="cover">
-      <DateText>{date.toFormat("HH:mm:ss")}</DateText>
+      <ShadowCont>
+        <DateText>{date.toFormat("HH:mm:ss")}</DateText>
+      </ShadowCont>
     </Container>
   );
 }
 
 const Container = styled.ImageBackground`
-  width: 100%;
-  height: 100%;
+  flex: 1;
+`;
+
+const ShadowCont = styled.View`
+  flex: 1;
 
   justify-content: center;
   align-items: center;
+
+  background: rgba(55, 55, 55, 0.5);
 `;
 
 const DateText = styled.Text`

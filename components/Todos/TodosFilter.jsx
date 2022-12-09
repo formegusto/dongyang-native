@@ -1,5 +1,5 @@
 import React from "react";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { Pressable } from "react-native";
 import styled, { css } from "styled-components";
 import { TodosContext } from "../../context";
 import { iOSColors } from "../../styles";

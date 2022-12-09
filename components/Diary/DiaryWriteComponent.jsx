@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import styled from "styled-components";
 import { DiaryContext } from "../../context";
 import { DiaryInput } from "./DiaryInput";

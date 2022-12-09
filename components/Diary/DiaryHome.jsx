@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { Pressable } from "react-native";
 import styled from "styled-components";
 import { DiaryList } from "./DiaryList";
 import { NavButton } from "./NavButton";

@@ -1,5 +1,7 @@
+import { JusoContainer } from "../containers";
+
 function JusoScreen() {
-  return <></>;
+  return <JusoContainer />;
 }
 
 export { JusoScreen };

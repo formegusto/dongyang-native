@@ -9,6 +9,7 @@ import { Button } from "../styles";
 import styled from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from "@react-navigation/stack";
+import { JusoScreen } from "./JusoScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export const SCREENS = [
   { name: "Lotto", component: LottoScreen },
   { name: "Todos", component: TodosScreen },
   { name: "Diary", component: DiaryScreen, options: { headerShown: false } },
+  { name: "Juso", component: JusoScreen, options: { title: "주소 검색" } },
 ];
 
 function HomeScreen() {
