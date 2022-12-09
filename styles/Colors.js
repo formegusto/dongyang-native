@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 export const iosColorKeys = [
   "red",
   "orange",
@@ -15,7 +13,7 @@ export const iosColorKeys = [
   "brown",
 ];
 
-export const iosColors = {
+export const iOSColors = {
   red: "rgb(255,69,58)",
   orange: "rgb(255,149,0)",
   yellow: "rgb(255,204,0)",
@@ -29,5 +27,3 @@ export const iosColors = {
   pink: "rgb(255,55,95)",
   brown: "rgb(162,132,94)",
 };
-
-export const randomIosColors = () => iosColors[_.sample(iosColorKeys)];

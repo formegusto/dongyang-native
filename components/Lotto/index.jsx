@@ -12,7 +12,7 @@ function LottoComponent({ items, onPress }) {
           <LottoItem key={`item-${idx}`} item={item} />
         ))}
       </ItemWrap>
-      <Button onPress={onPress}>Re</Button>
+      <Button onPress={onPress}>재추첨</Button>
     </Wrap>
   );
 }

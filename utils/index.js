@@ -1,1 +1,1 @@
-export * from "./IosColor";
+export * from "./color";
