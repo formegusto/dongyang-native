@@ -31,7 +31,7 @@ export function TodosProvider({ children }) {
       setTodos(
         produce(todos, (draft) => {
           const findIdx = todos.indexOf(item);
-          draft[idx].done = !draft[idx].done;
+          draft[findIdx].done = !draft[findIdx].done;
         })
       );
     },
@@ -60,7 +60,7 @@ export function TodosProvider({ children }) {
   }, []);
 
   return (
-    <TodosContext.Provider value={(todos, onAppend, onUpdate, onDelete)}>
+    <TodosContext.Provider value={{ todos, onAppend, onUpdate, onDelete }}>
       {children}
     </TodosContext.Provider>
   );

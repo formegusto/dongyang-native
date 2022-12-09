@@ -1,7 +1,12 @@
 import { TodosContainer } from "../containers";
+import { TodosProvider } from "../context";
 
 function TodosScreen() {
-  return <TodosContainer />;
+  return (
+    <TodosProvider>
+      <TodosContainer />
+    </TodosProvider>
+  );
 }
 
 export { TodosScreen };

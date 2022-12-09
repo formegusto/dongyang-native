@@ -5,25 +5,26 @@ import { ClockScreen } from "./ClockScreen";
 import { LottoScreen } from "./LottoScreen";
 import { TodosScreen } from "./TodosScreen";
 import { DiaryScreen } from "./diary";
+import _ from "lodash";
 
 const Stack = createStackNavigator();
 
-function Pages() {
+export const PAGES = [
+  { name: "Home", component: HomeScreen },
+  { name: "Clock", component: ClockScreen },
+  { name: "Lotto", component: LottoScreen },
+  { name: "Todos", component: TodosScreen },
+  { name: "Diary", component: DiaryScreen, options: { headerShown: false } },
+];
+
+export function Pages() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Clock" component={ClockScreen} />
-        <Stack.Screen name="Lotto" component={LottoScreen} />
-        <Stack.Screen name="Todos" component={TodosScreen} />
-        <Stack.Screen
-          name="Diary"
-          component={DiaryScreen}
-          options={{ headerShown: false }}
-        />
+        {_.map(PAGES, (page) => (
+          <Stack.Screen key={`screen-${page.name}`} {...page} />
+        ))}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-export default Pages;

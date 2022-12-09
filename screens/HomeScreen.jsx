@@ -1,6 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from "@react-navigation/stack";
+import _ from "lodash";
 import styled from "styled-components/native";
+import { PAGES } from ".";
 import { Button } from "../styles";
 
 function HomeScreen() {
@@ -9,10 +11,13 @@ function HomeScreen() {
 
   return (
     <Wrap header={headerHeight}>
-      <Button onPress={() => navigation.push("Clock")}>Clock</Button>
-      <Button onPress={() => navigation.push("Lotto")}>Lotto</Button>
-      <Button onPress={() => navigation.push("Todos")}>Todos</Button>
-      <Button onPress={() => navigation.push("Diary")}>Diary</Button>
+      {_.map(_.drop(PAGES), (page) => (
+        <Button
+          key={`nav-btn-${page.name}`}
+          onPress={() => navigation.push(page.name)}>
+          {page.name}
+        </Button>
+      ))}
     </Wrap>
   );
 }
