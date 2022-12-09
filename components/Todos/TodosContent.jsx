@@ -1,16 +1,18 @@
 import _ from "lodash";
 import React from "react";
 import styled from "styled-components";
+import { TodosContext } from "../../context";
 import { TodoItem } from "./TodoItem";
 
-function TodosContent({ todos, onChangeStatus, onDelete }) {
+function TodosContent() {
+  const { filtered, onDelete, onUpdate } = React.useContext(TodosContext);
   return (
     <Wrap>
-      {_.map(todos, (todo) => (
+      {_.map(filtered, (todo) => (
         <TodoItem
           key={todo.id}
           {...todo}
-          onCheck={() => onChangeStatus(todo)}
+          onCheck={() => onUpdate(todo)}
           onDelete={() => onDelete(todo.id)}
         />
       ))}

@@ -5,26 +5,36 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const TodosContext = React.createContext({
   todos: [],
+  filter: undefined, // all: undefined, done: false, undone: true
+  filtered: [],
   onAppend: () => {},
   onUpdate: () => {},
   onDelete: () => {},
+  onChangeFilter: () => {},
 });
 
 export function TodosProvider({ children }) {
+  const [filter, setFilter] = React.useState();
   const [todos, setTodos] = React.useState([]);
 
-  const onAppend = React.useCallback((title) => {
-    if (title !== "") {
-      setTodos((prev) => [
-        ...prev,
-        {
-          id: new Date().getTime().toString(),
-          todo: title,
-          done: false,
-        },
-      ]);
-    }
-  }, []);
+  const onAppend = React.useCallback(
+    (title) => {
+      if (title !== "") {
+        const newTodos = [
+          ...todos,
+          {
+            id: new Date().getTime().toString(),
+            todo: title,
+            done: false,
+          },
+        ];
+        setTodos(newTodos);
+
+        AsyncStorage.setItem("todos", JSON.stringify(newTodos));
+      }
+    },
+    [todos]
+  );
 
   const onUpdate = React.useCallback(
     (item) => {
@@ -32,6 +42,8 @@ export function TodosProvider({ children }) {
         produce(todos, (draft) => {
           const findIdx = todos.indexOf(item);
           draft[findIdx].done = !draft[findIdx].done;
+
+          AsyncStorage.setItem("todos", JSON.stringify(draft));
         })
       );
     },
@@ -45,9 +57,17 @@ export function TodosProvider({ children }) {
     [todos]
   );
 
-  React.useEffect(() => {
-    if (todos) AsyncStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+  const filtered = React.useMemo(
+    () =>
+      typeof filter !== "undefined"
+        ? _.filter(todos, ({ done }) => done === filter)
+        : todos,
+    [filter, todos]
+  );
+
+  const onChangeFilter = React.useCallback((state) => {
+    setFilter(state);
+  }, []);
 
   React.useEffect(() => {
     AsyncStorage.getItem("todos")
@@ -60,7 +80,16 @@ export function TodosProvider({ children }) {
   }, []);
 
   return (
-    <TodosContext.Provider value={{ todos, onAppend, onUpdate, onDelete }}>
+    <TodosContext.Provider
+      value={{
+        todos,
+        onAppend,
+        onUpdate,
+        onDelete,
+        filter,
+        filtered,
+        onChangeFilter,
+      }}>
       {children}
     </TodosContext.Provider>
   );

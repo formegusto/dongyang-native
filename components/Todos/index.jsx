@@ -28,3 +28,4 @@ const KeyboardView = styled.KeyboardAvoidingView`
 export { TodosComponent };
 export * from "./TodosContent";
 export * from "./TodosInputs";
+export * from "./TodosFilter";

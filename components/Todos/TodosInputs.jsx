@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { TodosContext } from "../../context";
 
-function TodosInputs({ onPress }) {
+function TodosInputs() {
+  const { onAppend } = React.useContext(TodosContext);
   const [input, setInput] = React.useState("");
 
   const onChange = React.useCallback((value) => {
@@ -9,9 +11,9 @@ function TodosInputs({ onPress }) {
   }, []);
 
   const onTodos = React.useCallback(() => {
-    onPress(input);
+    onAppend(input);
     setInput("");
-  }, [input]);
+  }, [input, onAppend]);
 
   return (
     <Wrap>
