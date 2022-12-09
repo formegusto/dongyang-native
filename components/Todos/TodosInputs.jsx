@@ -8,6 +8,11 @@ function TodosInputs({ onPress }) {
     setInput(value);
   }, []);
 
+  const onTodos = React.useCallback(() => {
+    onPress(input);
+    setInput("");
+  }, [input]);
+
   return (
     <Wrap>
       <Input
@@ -15,7 +20,7 @@ function TodosInputs({ onPress }) {
         onChangeText={onChange}
         placeholder="할 일을 입력해주세요."
       />
-      <Button title="전송" onPress={() => onPress(input)} />
+      <Button title="전송" onPress={onTodos} />
     </Wrap>
   );
 }
