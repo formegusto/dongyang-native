@@ -15,26 +15,20 @@ export const TodosContext = React.createContext({
 
 export function TodosProvider({ children }) {
   const [filter, setFilter] = React.useState();
-  const [todos, setTodos] = React.useState([]);
+  const [todos, setTodos] = React.useState(null);
 
-  const onAppend = React.useCallback(
-    (title) => {
-      if (title !== "") {
-        const newTodos = [
-          ...todos,
-          {
-            id: new Date().getTime().toString(),
-            todo: title,
-            done: false,
-          },
-        ];
-        setTodos(newTodos);
-
-        AsyncStorage.setItem("todos", JSON.stringify(newTodos));
-      }
-    },
-    [todos]
-  );
+  const onAppend = React.useCallback((title) => {
+    if (title !== "") {
+      setTodos((prev) => [
+        ...prev,
+        {
+          id: new Date().getTime().toString(),
+          todo: title,
+          done: false,
+        },
+      ]);
+    }
+  }, []);
 
   const onUpdate = React.useCallback(
     (item) => {
@@ -42,8 +36,6 @@ export function TodosProvider({ children }) {
         produce(todos, (draft) => {
           const findIdx = todos.indexOf(item);
           draft[findIdx].done = !draft[findIdx].done;
-
-          AsyncStorage.setItem("todos", JSON.stringify(draft));
         })
       );
     },
@@ -70,9 +62,14 @@ export function TodosProvider({ children }) {
   }, []);
 
   React.useEffect(() => {
+    if (todos) AsyncStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  React.useEffect(() => {
     AsyncStorage.getItem("todos")
       .then((data) => {
         if (data != null) setTodos(JSON.parse(data));
+        else setTodos([]);
       })
       .catch((err) => {
         alert(err.message);

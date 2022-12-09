@@ -9,9 +9,8 @@ function DiaryList() {
 
   return (
     <Wrap>
-      {_.map(diaries, (diary) => (
-        <DiaryItem key={diary.id} {...diary} />
-      ))}
+      {diaries &&
+        _.map(diaries, (diary) => <DiaryItem key={diary.id} {...diary} />)}
     </Wrap>
   );
 }

@@ -9,17 +9,17 @@ export const DiaryContext = React.createContext({
 });
 
 export function DiaryProvider({ children }) {
-  const [diaries, setDiaries] = React.useState([]);
+  const [diaries, setDiaries] = React.useState(null);
 
-  const appendDiary = React.useCallback(
-    ({ content, date }) => {
-      if (!DateTime.fromISO(date).isValid) {
-        alert("유효하지 않은 날짜 형식입니다.\nex) 1996-10-02");
-        return;
-      }
-      const newDiaries = _.sortBy(
+  const appendDiary = React.useCallback(({ content, date }) => {
+    if (!DateTime.fromISO(date).isValid) {
+      alert("유효하지 않은 날짜 형식입니다.\nex) 1996-10-02");
+      return;
+    }
+    setDiaries((prev) =>
+      _.sortBy(
         [
-          ...diaries,
+          ...prev,
           {
             id: new Date().getTime(),
             content,
@@ -28,17 +28,19 @@ export function DiaryProvider({ children }) {
           },
         ],
         ({ date }) => date
-      );
-      setDiaries(newDiaries);
-      AsyncStorage.setItem("diary", JSON.stringify(newDiaries));
-    },
-    [diaries]
-  );
+      )
+    );
+  }, []);
+
+  React.useEffect(() => {
+    if (diaries) AsyncStorage.setItem("diary", JSON.stringify(diaries));
+  }, [diaries]);
 
   React.useEffect(() => {
     AsyncStorage.getItem("diary")
       .then((data) => {
         if (data !== null) setDiaries(JSON.parse(data));
+        else setDiaries([]);
       })
       .catch((err) => {
         alert(err.message);
