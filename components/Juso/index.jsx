@@ -1,7 +1,7 @@
 import React from "react";
-import { View } from "react-native";
 import styled from "styled-components";
 import { getJuso } from "../../api";
+import { ReativeContainer } from "../../styles";
 import JusoInput from "./JusoInput";
 import JusoItem from "./JusoItem";
 
@@ -23,13 +23,15 @@ function JusoComponent() {
 
   return (
     <Wrap>
-      <JusoInput onSearch={onSearch} />
-      <JusoList
-        data={list}
-        renderItem={({ item }) => <JusoItem {...item} />}
-        keyExtractor={(item) => item.rnMgtSn + item.roadAddr}
-        ItemSeparatorComponent={<ListSeparator />}
-      />
+      <ReativeContainer>
+        <JusoInput onSearch={onSearch} />
+        <JusoList
+          data={list}
+          renderItem={({ item }) => <JusoItem {...item} />}
+          keyExtractor={(item) => item.rnMgtSn + item.roadAddr}
+          ItemSeparatorComponent={<ListSeparator />}
+        />
+      </ReativeContainer>
     </Wrap>
   );
 }

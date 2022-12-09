@@ -22,7 +22,7 @@ function DiaryInput({ input, onChange }) {
   );
 }
 
-const Wrap = styled.View`
+const Wrap = styled.ScrollView`
   flex: 1;
   padding: 48px 24px;
 `;

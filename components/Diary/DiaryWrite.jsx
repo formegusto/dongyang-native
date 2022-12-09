@@ -2,10 +2,11 @@ import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import styled from "styled-components";
 import { DiaryContext } from "../../context";
+import { ReativeContainer } from "../../styles";
 import { DiaryInput } from "./DiaryInput";
 import { NavButton } from "./NavButton";
 
-function DiaryWriteComponent() {
+function DiaryWrite() {
   const { appendDiary } = React.useContext(DiaryContext);
   const navigation = useNavigation();
   const [input, setInput] = React.useState({ content: "", date: "" });
@@ -24,8 +25,10 @@ function DiaryWriteComponent() {
 
   return (
     <Wrap>
-      <DiaryInput input={input} onChange={onChange} />
-      <NavButton onPress={onAppendPop}>일기 저장</NavButton>
+      <ReativeContainer>
+        <DiaryInput input={input} onChange={onChange} />
+        <NavButton onPress={onAppendPop}>일기 저장</NavButton>
+      </ReativeContainer>
     </Wrap>
   );
 }
@@ -34,4 +37,4 @@ const Wrap = styled.SafeAreaView`
   flex: 1;
 `;
 
-export { DiaryWriteComponent };
+export { DiaryWrite };

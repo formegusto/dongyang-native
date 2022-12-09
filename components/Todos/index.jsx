@@ -1,17 +1,11 @@
 import styled from "styled-components";
 import Constants from "expo-constants";
-import { useHeaderHeight } from "@react-navigation/stack";
+import { ReativeContainer } from "../../styles";
 
 function TodosComponent({ children }) {
-  const headerHeight = useHeaderHeight();
-
   return (
     <Container>
-      <KeyboardView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={headerHeight}>
-        {children}
-      </KeyboardView>
+      <ReativeContainer>{children}</ReativeContainer>
     </Container>
   );
 }
@@ -19,10 +13,6 @@ function TodosComponent({ children }) {
 const Container = styled.SafeAreaView`
   flex: 1;
   padding-top: ${Constants.statusBarHeight}px;
-`;
-
-const KeyboardView = styled.KeyboardAvoidingView`
-  flex: 1;
 `;
 
 export { TodosComponent };

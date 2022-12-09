@@ -1,7 +1,7 @@
-import { DiaryWriteComponent } from "../../components";
+import { DiaryWrite } from "../../components";
 
 function DiaryWriteContainer() {
-  return <DiaryWriteComponent />;
+  return <DiaryWrite />;
 }
 
 export { DiaryWriteContainer };

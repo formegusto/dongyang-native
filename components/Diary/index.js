@@ -1,2 +1,2 @@
 export * from "./DiaryHome";
-export * from "./DiaryWriteComponent";
+export * from "./DiaryWrite";
