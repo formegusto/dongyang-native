@@ -4,31 +4,46 @@ import { IconButton } from "../../styles";
 import { AntDesign } from "@expo/vector-icons";
 import { DiaryContext } from "../../context";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native";
 
 function DiaryItem({ id, content, date }) {
-  const { onDelete, pushUpdateScreen } = React.useContext(DiaryContext);
+  const navigation = useNavigation();
+  const { onDelete, selectDiary } = React.useContext(DiaryContext);
+
+  const onUpdateScreen = React.useCallback(() => {
+    selectDiary(id);
+    navigation.push("DiaryUpdate");
+  }, [id, selectDiary, navigation]);
+
+  const onDetailScreen = React.useCallback(() => {
+    selectDiary(id);
+    navigation.push("DiaryDetail");
+  }, [id, selectDiary]);
 
   return (
-    <Wrap>
-      <WrapGroup>
-        <DateWrap>
-          <DateText>
-            {DateTime.fromISO(date).toFormat("yyyy년 MM월 dd일")}
-          </DateText>
-        </DateWrap>
-        <IconWrap>
-          <IconButton onPress={() => pushUpdateScreen(id)}>
-            <AntDesign name="edit" size={20} color="#fff" />
-          </IconButton>
-          <IconButton onPress={() => onDelete(id)}>
-            <AntDesign name="delete" size={20} color="#fff" />
-          </IconButton>
-        </IconWrap>
-      </WrapGroup>
-      <ContentWrap>
-        <ContentText>{content}</ContentText>
-      </ContentWrap>
-    </Wrap>
+    <TouchableOpacity activeOpacity={0.8} onPress={onDetailScreen}>
+      <Wrap>
+        <WrapGroup>
+          <DateWrap>
+            <DateText>
+              {DateTime.fromISO(date).toFormat("yyyy년 MM월 dd일")}
+            </DateText>
+          </DateWrap>
+          <IconWrap>
+            <IconButton onPress={onUpdateScreen}>
+              <AntDesign name="edit" size={20} color="#fff" />
+            </IconButton>
+            <IconButton onPress={() => onDelete(id)}>
+              <AntDesign name="delete" size={20} color="#fff" />
+            </IconButton>
+          </IconWrap>
+        </WrapGroup>
+        <ContentWrap>
+          <ContentText numberOfLines={3}>{content}</ContentText>
+        </ContentWrap>
+      </Wrap>
+    </TouchableOpacity>
   );
 }
 
@@ -59,12 +74,12 @@ const DateText = styled.Text`
 `;
 
 const ContentWrap = styled.View`
-  height: 80px;
-  padding: 10px 4px;
+  padding: 12px 4px 4px;
 `;
 const ContentText = styled.Text`
   color: #fff;
   font-weight: bold;
+  text-overflow: ellipsis;
 `;
 
 const IconWrap = styled.View`

@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import produce from "immer";
 import _ from "lodash";
 import { DateTime } from "luxon";
@@ -7,21 +6,20 @@ import { getItem, setItem } from "../utils";
 
 export const DiaryContext = React.createContext({
   diaries: [],
-  updatedDiary: null,
+  SelectedDiary: null,
   appendDiary: () => {},
   onDelete: () => {},
   onUpdate: () => {},
-  pushUpdateScreen: (id) => {},
+  selectDiary: () => {},
 });
 
 export function DiaryProvider({ children }) {
-  const navigation = useNavigation();
   const [diaries, setDiaries] = React.useState(null);
-  const [updatedId, setUpdatedId] = React.useState(null);
+  const [selectedId, setSelectedId] = React.useState(null);
 
-  const updatedDiary = React.useMemo(
-    () => _.find(diaries, ({ id }) => id === updatedId),
-    [updatedId]
+  const selectedDiary = React.useMemo(
+    () => _.find(diaries, ({ id }) => id === selectedId),
+    [diaries, selectedId]
   );
 
   const appendDiary = React.useCallback(({ content, date }) => {
@@ -49,13 +47,9 @@ export function DiaryProvider({ children }) {
     setDiaries((prev) => _.reject(prev, ({ id }) => id === deletedId));
   }, []);
 
-  const pushUpdateScreen = React.useCallback(
-    (id) => {
-      setUpdatedId(id);
-      navigation.push("DiaryUpdate");
-    },
-    [navigation]
-  );
+  const selectDiary = React.useCallback((id) => {
+    setSelectedId(id);
+  }, []);
 
   const onUpdate = React.useCallback((updatedId, input) => {
     setDiaries((prev) =>
@@ -87,8 +81,8 @@ export function DiaryProvider({ children }) {
         appendDiary,
         onDelete,
         onUpdate,
-        pushUpdateScreen,
-        updatedDiary,
+        selectDiary,
+        selectedDiary,
       }}>
       {children}
     </DiaryContext.Provider>

@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import _ from "lodash";
 import { DiaryProvider } from "../../context";
+import { DiaryDetailScreen } from "./DiaryDetailScreen";
 import { DiaryHomeScreen } from "./DiaryHomeScreen";
 import { DiaryUpdateScreen } from "./DiaryUpdateScreen";
 import { DiaryWriteScreen } from "./DiaryWriteScreen";
@@ -22,6 +23,10 @@ export const DIARYSCREENS = [
     name: "DiaryUpdate",
     component: DiaryUpdateScreen,
     options: { title: "일기 수정" },
+  },
+  {
+    name: "DiaryDetail",
+    component: DiaryDetailScreen,
   },
 ];
 
