@@ -10,13 +10,19 @@ import styled from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from "@react-navigation/stack";
 import { JusoScreen } from "./JusoScreen";
+import { FlatList } from "react-native";
+import React from "react";
 
 const Stack = createStackNavigator();
 
 export const SCREENS = [
-  { name: "Clock", component: ClockScreen },
-  { name: "Lotto", component: LottoScreen },
-  { name: "Todos", component: TodosScreen },
+  { name: "Clock", component: ClockScreen, options: { title: "디지털 시계" } },
+  {
+    name: "Lotto",
+    component: LottoScreen,
+    options: { title: "로또 번호 생성기" },
+  },
+  { name: "Todos", component: TodosScreen, options: { title: "할 일 관리" } },
   { name: "Diary", component: DiaryScreen, options: { headerShown: false } },
   { name: "Juso", component: JusoScreen, options: { title: "주소 검색" } },
 ];
@@ -25,16 +31,22 @@ function HomeScreen() {
   const navigation = useNavigation();
   const headerHeight = useHeaderHeight();
 
+  const renderItem = React.useCallback(
+    ({ item: { name } }) => (
+      <Button onPress={() => navigation.push(name)} margin={12}>
+        {name}
+      </Button>
+    ),
+    [navigation]
+  );
+
   return (
     <Wrap header={headerHeight}>
-      {_.map(SCREENS, ({ name }) => (
-        <Button
-          key={`nav-btn-${name}`}
-          onPress={() => navigation.push(name)}
-          margin={12}>
-          {name}
-        </Button>
-      ))}
+      <FlatList
+        data={SCREENS}
+        renderItem={renderItem}
+        keyExtractor={({ name }) => `nav-btn-${name}`}
+      />
     </Wrap>
   );
 }
@@ -52,7 +64,11 @@ export function Screens() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "iOS 개발실무" }}
+        />
         {_.map(SCREENS, (screen) => (
           <Stack.Screen key={`screen-${screen.name}`} {...screen} />
         ))}
