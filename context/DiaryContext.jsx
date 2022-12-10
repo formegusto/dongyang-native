@@ -1,9 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import produce from "immer";
 import _ from "lodash";
 import { DateTime } from "luxon";
 import React from "react";
+import { getItem, setItem } from "../utils";
 
 export const DiaryContext = React.createContext({
   diaries: [],
@@ -73,18 +73,11 @@ export function DiaryProvider({ children }) {
   }, []);
 
   React.useEffect(() => {
-    if (diaries) AsyncStorage.setItem("diary", JSON.stringify(diaries));
+    if (diaries) setItem("diary", diaries);
   }, [diaries]);
 
   React.useEffect(() => {
-    AsyncStorage.getItem("diary")
-      .then((data) => {
-        if (data !== null) setDiaries(JSON.parse(data));
-        else setDiaries([]);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    getItem("diary", setDiaries, []);
   }, []);
 
   return (

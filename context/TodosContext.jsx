@@ -1,7 +1,7 @@
 import React from "react";
 import produce from "immer";
 import _ from "lodash";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setItem, getItem } from "../utils";
 
 export const TodosContext = React.createContext({
   todos: [],
@@ -62,18 +62,11 @@ export function TodosProvider({ children }) {
   }, []);
 
   React.useEffect(() => {
-    if (todos) AsyncStorage.setItem("todos", JSON.stringify(todos));
+    if (todos) setItem("todos", todos);
   }, [todos]);
 
   React.useEffect(() => {
-    AsyncStorage.getItem("todos")
-      .then((data) => {
-        if (data != null) setTodos(JSON.parse(data));
-        else setTodos([]);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    getItem("todos", setTodos, []);
   }, []);
 
   return (
