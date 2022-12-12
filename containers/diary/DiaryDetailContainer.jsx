@@ -5,7 +5,7 @@ import { DiaryDetail } from "../../components";
 import { DiaryContext } from "../../context";
 
 function DiaryDetailContainer() {
-  const { selectedDiary } = React.useContext(DiaryContext);
+  const { selectedDiary, selectDiary } = React.useContext(DiaryContext);
   const navigation = useNavigation();
 
   React.useEffect(() => {
@@ -16,6 +16,12 @@ function DiaryDetailContainer() {
         ),
       });
   }, [selectedDiary]);
+
+  React.useEffect(() => {
+    return () => {
+      selectDiary(null);
+    };
+  }, []);
 
   return <DiaryDetail {...selectedDiary} />;
 }

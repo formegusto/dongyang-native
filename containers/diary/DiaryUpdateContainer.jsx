@@ -6,7 +6,8 @@ import { DiaryContext } from "../../context";
 
 function DiaryUpdateContainer() {
   const navigation = useNavigation();
-  const { selectedDiary, onUpdate } = React.useContext(DiaryContext);
+  const { selectedDiary, onUpdate, selectDiary } =
+    React.useContext(DiaryContext);
 
   const onUpdateAndPop = react.useCallback(
     (...params) => {
@@ -15,6 +16,12 @@ function DiaryUpdateContainer() {
     },
     [onUpdate, navigation]
   );
+
+  React.useEffect(() => {
+    return () => {
+      selectDiary(null);
+    };
+  }, []);
 
   return <DiaryUpdate {...selectedDiary} onUpdate={onUpdateAndPop} />;
 }

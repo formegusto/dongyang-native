@@ -10,7 +10,11 @@ function JusoInput({ onSearch }) {
 
   return (
     <Wrap>
-      <Input value={input} onChangeText={onChange} />
+      <Input
+        value={input}
+        onChangeText={onChange}
+        placeholder="주소를 입력해주세요."
+      />
       <Button title="검색" onPress={() => onSearch(input)} />
     </Wrap>
   );

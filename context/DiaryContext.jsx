@@ -11,6 +11,7 @@ export const DiaryContext = React.createContext({
   onDelete: () => {},
   onUpdate: () => {},
   selectDiary: () => {},
+  // load: () => {},
 });
 
 export function DiaryProvider({ children }) {
@@ -18,7 +19,8 @@ export function DiaryProvider({ children }) {
   const [selectedId, setSelectedId] = React.useState(null);
 
   const selectedDiary = React.useMemo(
-    () => _.find(diaries, ({ id }) => id === selectedId),
+    () =>
+      selectedId ? _.find(diaries, ({ id }) => id === selectedId) : selectedId,
     [diaries, selectedId]
   );
 
@@ -38,7 +40,7 @@ export function DiaryProvider({ children }) {
             date: date,
           },
         ],
-        ({ date }) => date
+        "date"
       )
     );
   }, []);
@@ -61,7 +63,7 @@ export function DiaryProvider({ children }) {
             ...input,
           };
         }),
-        ({ date }) => date
+        "date"
       )
     );
   }, []);
