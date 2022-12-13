@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { ReativeContainer } from "../../styles";
-import { DiaryInput } from "./DiaryInput";
-import { NavButton } from "./NavButton";
+import { ReativeContainer } from "../../../styles";
+import Input from "../Input";
+import NavButton from "../NavButton";
 
 function DiaryUpdate({ id, content, date, onUpdate }) {
   const [input, setInput] = React.useState({ content, date });
@@ -17,7 +17,7 @@ function DiaryUpdate({ id, content, date, onUpdate }) {
   return (
     <Wrap>
       <ReativeContainer>
-        <DiaryInput input={input} onChange={onChange} />
+        <Input input={input} onChange={onChange} />
         <NavButton onPress={() => onUpdate(id, input)}>일기 수정</NavButton>
       </ReativeContainer>
     </Wrap>

@@ -1,10 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import styled from "styled-components";
-import { DiaryContext } from "../../context";
-import { ReativeContainer } from "../../styles";
-import { DiaryInput } from "./DiaryInput";
-import { NavButton } from "./NavButton";
+import { DiaryContext } from "../../../context";
+import { ReativeContainer } from "../../../styles";
+import Input from "../Input";
+import NavButton from "../NavButton";
 
 function DiaryWrite() {
   const { appendDiary } = React.useContext(DiaryContext);
@@ -26,7 +26,7 @@ function DiaryWrite() {
   return (
     <Wrap>
       <ReativeContainer>
-        <DiaryInput input={input} onChange={onChange} />
+        <Input input={input} onChange={onChange} />
         <NavButton onPress={onAppendPop}>일기 저장</NavButton>
       </ReativeContainer>
     </Wrap>

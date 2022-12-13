@@ -1,7 +1,7 @@
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components";
 
-export function NavButton({ children, ...buttonProps }) {
+function NavButton({ children, ...buttonProps }) {
   return (
     <TouchableOpacity activeOpacity={0.8} {...buttonProps}>
       <NavButtonStyle>
@@ -25,3 +25,5 @@ const NavText = styled.Text`
   color: #fff;
   font-weight: bold;
 `;
+
+export default NavButton;

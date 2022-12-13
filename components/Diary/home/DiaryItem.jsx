@@ -1,8 +1,8 @@
 import { DateTime } from "luxon";
 import styled from "styled-components";
-import { IconButton } from "../../styles";
+import { IconButton } from "../../../styles";
 import { AntDesign } from "@expo/vector-icons";
-import { DiaryContext } from "../../context";
+import { DiaryContext } from "../../../context";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
@@ -87,4 +87,4 @@ const IconWrap = styled.View`
   justify-content: flex-end;
 `;
 
-export { DiaryItem };
+export default DiaryItem;

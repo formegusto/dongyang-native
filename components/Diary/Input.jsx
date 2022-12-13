@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function DiaryInput({ input, onChange }) {
+function Input({ input, onChange }) {
   return (
     <Wrap>
       <ContentTitle>날짜</ContentTitle>
@@ -47,4 +47,4 @@ const ContentInput = styled.TextInput`
   padding: 12px 8px;
 `;
 
-export { DiaryInput };
+export default Input;
