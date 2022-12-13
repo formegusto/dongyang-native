@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { TodosContext } from "../../context";
 
-function TodosInputs() {
-  const { onAppend } = React.useContext(TodosContext);
+function TodosInputs({ onAppend }) {
   const [input, setInput] = React.useState("");
 
   const onChange = React.useCallback((value) => {

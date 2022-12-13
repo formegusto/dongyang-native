@@ -1,5 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import produce from "immer";
 import _ from "lodash";
 import React from "react";
 import {
@@ -8,13 +6,17 @@ import {
   TodosInputs,
   TodosFilter,
 } from "../components";
+import { TodosContext } from "../context";
 
 function TodosContainer() {
+  const { filter, filtered, onChangeFilter, onDelete, onUpdate, onAppend } =
+    React.useContext(TodosContext);
+
   return (
     <TodosComponent>
-      <TodosFilter />
-      <TodosContent />
-      <TodosInputs />
+      <TodosFilter {...{ filter, onChangeFilter }} />
+      <TodosContent {...{ filtered, onDelete, onUpdate }} />
+      <TodosInputs onAppend={onAppend} />
     </TodosComponent>
   );
 }

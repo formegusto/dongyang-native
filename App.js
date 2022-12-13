@@ -1,5 +1,5 @@
 import { NativeBaseProvider } from "native-base";
-import { Screens } from "./screens";
+import Screens from "./screens";
 
 function App() {
   return (

@@ -1,7 +1,6 @@
 import React from "react";
 import { Pressable } from "react-native";
 import styled, { css } from "styled-components";
-import { TodosContext } from "../../context";
 import { iOSColors } from "../../styles";
 
 function FilterButton({ children, selected, ...buttonProps }) {
@@ -14,9 +13,7 @@ function FilterButton({ children, selected, ...buttonProps }) {
   );
 }
 
-function TodosFilter() {
-  const { filter, onChangeFilter } = React.useContext(TodosContext);
-
+function TodosFilter({ filter, onChangeFilter }) {
   return (
     <Wrap>
       <FilterButton

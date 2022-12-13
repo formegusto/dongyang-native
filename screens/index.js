@@ -15,18 +15,6 @@ import React from "react";
 
 const Stack = createStackNavigator();
 
-export const SCREENS = [
-  { name: "Clock", component: ClockScreen, options: { title: "디지털 시계" } },
-  {
-    name: "Lotto",
-    component: LottoScreen,
-    options: { title: "로또 번호 생성기" },
-  },
-  { name: "Todos", component: TodosScreen, options: { title: "할 일 관리" } },
-  { name: "Diary", component: DiaryScreen, options: { headerShown: false } },
-  { name: "Juso", component: JusoScreen, options: { title: "주소 검색" } },
-];
-
 function HomeScreen() {
   const navigation = useNavigation();
   const headerHeight = useHeaderHeight();
@@ -60,7 +48,19 @@ const Wrap = styled.View`
   padding: 0px 0px ${({ header }) => header}px;
 `;
 
-export function Screens() {
+const SCREENS = [
+  { name: "Clock", component: ClockScreen, options: { title: "디지털 시계" } },
+  {
+    name: "Lotto",
+    component: LottoScreen,
+    options: { title: "로또 번호 생성기" },
+  },
+  { name: "Todos", component: TodosScreen, options: { title: "할 일 관리" } },
+  { name: "Diary", component: DiaryScreen, options: { headerShown: false } },
+  { name: "Juso", component: JusoScreen, options: { title: "주소 검색" } },
+];
+
+function Screens() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -76,3 +76,5 @@ export function Screens() {
     </NavigationContainer>
   );
 }
+
+export default Screens;

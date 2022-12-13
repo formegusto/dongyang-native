@@ -1,11 +1,8 @@
 import _ from "lodash";
-import React from "react";
 import styled from "styled-components";
-import { TodosContext } from "../../context";
 import { TodoItem } from "./TodoItem";
 
-function TodosContent() {
-  const { filtered, onDelete, onUpdate } = React.useContext(TodosContext);
+function TodosContent({ filtered, onDelete, onUpdate }) {
   return (
     <Wrap>
       {_.map(filtered, (todo) => (
