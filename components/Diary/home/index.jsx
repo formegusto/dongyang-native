@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import styled from "styled-components";
-import DiaryList from "./DiaryList";
+import { DiaryList } from "./DiaryList";
 import NavButton from "../NavButton";
 
 function DiaryHome() {

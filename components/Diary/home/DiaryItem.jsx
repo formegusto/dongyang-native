@@ -87,4 +87,4 @@ const IconWrap = styled.View`
   justify-content: flex-end;
 `;
 
-export default DiaryItem;
+export { DiaryItem };

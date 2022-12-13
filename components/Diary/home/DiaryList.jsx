@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import styled from "styled-components";
 import { DiaryContext } from "../../../context";
-import DiaryItem from "./DiaryItem";
+import { DiaryItem } from "./DiaryItem";
 
 function DiaryList() {
   const { diaries } = React.useContext(DiaryContext);
@@ -20,4 +20,4 @@ const Wrap = styled.ScrollView`
   padding: 16px 24px;
 `;
 
-export default DiaryList;
+export { DiaryList };
