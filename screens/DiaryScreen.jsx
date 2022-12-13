@@ -1,32 +1,34 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import _ from "lodash";
-import { DiaryProvider } from "../../context";
-import { DiaryDetailScreen } from "./DiaryDetailScreen";
-import { DiaryHomeScreen } from "./DiaryHomeScreen";
-import { DiaryUpdateScreen } from "./DiaryUpdateScreen";
-import { DiaryWriteScreen } from "./DiaryWriteScreen";
+import { DiaryProvider } from "../context";
+import {
+  DiaryHomeContainer,
+  DiaryDetailContainer,
+  DiaryWriteContainer,
+  DiaryUpdateContainer,
+} from "../containers";
 
 const Stack = createStackNavigator();
 
 export const DIARYSCREENS = [
   {
     name: "DiaryHome",
-    component: DiaryHomeScreen,
+    component: DiaryHomeContainer,
     options: { title: "일기 목록" },
   },
   {
     name: "DiaryWrite",
-    component: DiaryWriteScreen,
+    component: DiaryWriteContainer,
     options: { title: "일기 작성" },
   },
   {
     name: "DiaryUpdate",
-    component: DiaryUpdateScreen,
+    component: DiaryUpdateContainer,
     options: { title: "일기 수정" },
   },
   {
     name: "DiaryDetail",
-    component: DiaryDetailScreen,
+    component: DiaryDetailContainer,
   },
 ];
 

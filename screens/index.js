@@ -4,7 +4,7 @@ import _ from "lodash";
 import { ClockScreen } from "./ClockScreen";
 import { LottoScreen } from "./LottoScreen";
 import { TodosScreen } from "./TodosScreen";
-import { DiaryScreen } from "./diary";
+import { DiaryScreen } from "./DiaryScreen";
 import { Button } from "../styles";
 import styled from "styled-components";
 import { useNavigation } from "@react-navigation/native";
