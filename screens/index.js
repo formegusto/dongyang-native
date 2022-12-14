@@ -12,6 +12,7 @@ import { useHeaderHeight } from "@react-navigation/stack";
 import { JusoScreen } from "./JusoScreen";
 import { FlatList } from "react-native";
 import React from "react";
+import { ExRateScreen } from "./ExRateScreen";
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,11 @@ const SCREENS = [
   { name: "Todos", component: TodosScreen, options: { title: "할 일 관리" } },
   { name: "Diary", component: DiaryScreen, options: { headerShown: false } },
   { name: "Juso", component: JusoScreen, options: { title: "주소 검색" } },
+  {
+    name: "Ex-Rate",
+    component: ExRateScreen,
+    options: { title: "환율 계산기" },
+  },
 ];
 
 function Screens() {

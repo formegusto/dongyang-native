@@ -3,3 +3,4 @@ export * from "./LottoContainer";
 export * from "./TodosContainer";
 export * from "./Diary";
 export * from "./JusoContainer";
+export * from "./ExRateContainer";
