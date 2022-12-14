@@ -12,14 +12,19 @@ function DiaryItem({ id, content, date }) {
   const { onDelete, selectDiary } = React.useContext(DiaryContext);
 
   const onUpdateScreen = React.useCallback(() => {
+    // context API 방식
     selectDiary(id);
     navigation.push("DiaryUpdate");
   }, [id, selectDiary, navigation]);
 
   const onDetailScreen = React.useCallback(() => {
-    selectDiary(id);
-    navigation.push("DiaryDetail");
-  }, [id, selectDiary]);
+    // route params 방식
+    navigation.push("DiaryDetail", {
+      id,
+      content,
+      date,
+    });
+  }, [id, content, date, navigation]);
 
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onDetailScreen}>

@@ -1,16 +1,11 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import styled from "styled-components";
-import { DiaryContext } from "../../../context";
 import { ReativeContainer } from "../../../styles";
 import Input from "../Input";
 import NavButton from "../NavButton";
 
-function DiaryWrite() {
-  const { appendDiary } = React.useContext(DiaryContext);
-  const navigation = useNavigation();
+function DiaryWrite({ onAppend }) {
   const [input, setInput] = React.useState({ content: "", date: "" });
-
   const onChange = React.useCallback((name, value) => {
     setInput((prev) => ({
       ...prev,
@@ -18,16 +13,11 @@ function DiaryWrite() {
     }));
   }, []);
 
-  const onAppendPop = React.useCallback(() => {
-    appendDiary(input);
-    navigation.pop();
-  }, [appendDiary, navigation, input]);
-
   return (
     <Wrap>
       <ReativeContainer>
         <Input input={input} onChange={onChange} />
-        <NavButton onPress={onAppendPop}>일기 저장</NavButton>
+        <NavButton onPress={() => onAppend(input)}>일기 저장</NavButton>
       </ReativeContainer>
     </Wrap>
   );
