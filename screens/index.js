@@ -1,4 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import _ from "lodash";
 import { ClockScreen } from "./ClockScreen";
@@ -68,18 +67,16 @@ const SCREENS = [
 
 function Screens() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "iOS 개발실무" }}
-        />
-        {_.map(SCREENS, (screen) => (
-          <Stack.Screen key={`screen-${screen.name}`} {...screen} />
-        ))}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: "iOS 개발실무" }}
+      />
+      {_.map(SCREENS, (screen) => (
+        <Stack.Screen key={`screen-${screen.name}`} {...screen} />
+      ))}
+    </Stack.Navigator>
   );
 }
 

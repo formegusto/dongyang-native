@@ -6,7 +6,7 @@ function ClockComponent({ date }) {
   return (
     <Container source={image} resizeMode="cover">
       <ShadowCont>
-        <DateText>{date.toFormat("HH:mm:ss")}</DateText>
+        <TimeText>{date.toFormat("HH:mm:ss")}</TimeText>
       </ShadowCont>
     </Container>
   );
@@ -25,7 +25,7 @@ const ShadowCont = styled.View`
   background: rgba(55, 55, 55, 0.5);
 `;
 
-const DateText = styled.Text`
+const TimeText = styled.Text`
   font-size: 64px;
   color: #fff;
   font-weight: 900;

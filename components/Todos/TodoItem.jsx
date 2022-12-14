@@ -1,8 +1,9 @@
-import { CheckIcon, CloseIcon } from "native-base";
 import React from "react";
 import styled from "styled-components";
 import { IconButton } from "../../styles";
 import { randomIosColors } from "../../utils";
+
+import { MaterialIcons } from "@expo/vector-icons";
 
 function TodoItem({ id, todo, done, onCheck, onDelete }) {
   const refRanColor = React.useRef(randomIosColors());
@@ -11,10 +12,10 @@ function TodoItem({ id, todo, done, onCheck, onDelete }) {
     <Wrap bgColor={done ? "#ccc" : refRanColor.current}>
       <IconWrap>
         <IconButton onPress={onCheck}>
-          <CheckIcon size="6" color="white" />
+          <MaterialIcons name="check" size={32} color="white" />
         </IconButton>
         <IconButton onPress={onDelete}>
-          <CloseIcon size="6" color="white" />
+          <MaterialIcons name="close" size={32} color="white" />
         </IconButton>
       </IconWrap>
       <Title>

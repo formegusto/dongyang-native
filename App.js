@@ -1,11 +1,11 @@
-import { NativeBaseProvider } from "native-base";
+import { NavigationContainer } from "@react-navigation/native";
 import Screens from "./screens";
 
 function App() {
   return (
-    <NativeBaseProvider>
+    <NavigationContainer>
       <Screens />
-    </NativeBaseProvider>
+    </NavigationContainer>
   );
 }
 
