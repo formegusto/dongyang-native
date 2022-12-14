@@ -4,12 +4,16 @@ import styled from "styled-components";
 import { DiaryList } from "./DiaryList";
 import NavButton from "../NavButton";
 
-function DiaryHome() {
-  const navigation = useNavigation();
-
+function DiaryHome({
+  navigation,
+  diaries,
+  onUpdateScreen,
+  onDetailScreen,
+  onDelete,
+}) {
   return (
     <Wrap>
-      <DiaryList />
+      <DiaryList {...{ diaries, onUpdateScreen, onDetailScreen, onDelete }} />
       <NavButton onPress={() => navigation.push("DiaryWrite")}>
         새 일기 작성
       </NavButton>

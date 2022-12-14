@@ -2,50 +2,30 @@ import { DateTime } from "luxon";
 import styled from "styled-components";
 import { IconButton } from "../../../styles";
 import { AntDesign } from "@expo/vector-icons";
-import { DiaryContext } from "../../../context";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 
-function DiaryItem({ id, content, date }) {
-  const navigation = useNavigation();
-  const { onDelete, selectDiary } = React.useContext(DiaryContext);
-
-  const onUpdateScreen = React.useCallback(() => {
-    // context API 방식
-    selectDiary(id);
-    navigation.push("DiaryUpdate");
-  }, [id, selectDiary, navigation]);
-
-  const onDetailScreen = React.useCallback(() => {
-    // route params 방식
-    navigation.push("DiaryDetail", {
-      id,
-      content,
-      date,
-    });
-  }, [id, content, date, navigation]);
-
+function DiaryItem({ onUpdateScreen, onDetailScreen, onDelete, ...diary }) {
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onDetailScreen}>
+    <TouchableOpacity activeOpacity={0.8} onPress={() => onDetailScreen(diary)}>
       <Wrap>
         <WrapGroup>
           <DateWrap>
             <DateText>
-              {DateTime.fromISO(date).toFormat("yyyy년 MM월 dd일")}
+              {DateTime.fromISO(diary.date).toFormat("yyyy년 MM월 dd일")}
             </DateText>
           </DateWrap>
           <IconWrap>
-            <IconButton onPress={onUpdateScreen}>
+            <IconButton onPress={() => onUpdateScreen(diary.id)}>
               <AntDesign name="edit" size={20} color="#fff" />
             </IconButton>
-            <IconButton onPress={() => onDelete(id)}>
+            <IconButton onPress={() => onDelete(diary.id)}>
               <AntDesign name="delete" size={20} color="#fff" />
             </IconButton>
           </IconWrap>
         </WrapGroup>
         <ContentWrap>
-          <ContentText numberOfLines={3}>{content}</ContentText>
+          <ContentText numberOfLines={3}>{diary.content}</ContentText>
         </ContentWrap>
       </Wrap>
     </TouchableOpacity>

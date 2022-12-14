@@ -1,16 +1,17 @@
 import _ from "lodash";
-import React from "react";
 import styled from "styled-components";
-import { DiaryContext } from "../../../context";
 import { DiaryItem } from "./DiaryItem";
 
-function DiaryList() {
-  const { diaries } = React.useContext(DiaryContext);
-
+function DiaryList({ diaries, onUpdateScreen, onDetailScreen, onDelete }) {
   return (
     <Wrap>
       {diaries &&
-        _.map(diaries, (diary) => <DiaryItem key={diary.id} {...diary} />)}
+        _.map(diaries, (diary) => (
+          <DiaryItem
+            key={diary.id}
+            {...{ onUpdateScreen, onDetailScreen, onDelete, ...diary }}
+          />
+        ))}
     </Wrap>
   );
 }

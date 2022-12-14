@@ -3,7 +3,8 @@ import { DiaryHome } from "../../components";
 import { DiaryContext } from "../../context";
 
 function DiaryHomeContainer({ navigation }) {
-  const { load } = React.useContext(DiaryContext);
+  const { load, diaries, selectDiary, onDelete } =
+    React.useContext(DiaryContext);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener(
@@ -15,8 +16,30 @@ function DiaryHomeContainer({ navigation }) {
     );
 
     return unsubscribe;
-  }, [load]);
-  return <DiaryHome />;
+  }, [load, navigation]);
+
+  const onUpdateScreen = React.useCallback(
+    (id) => {
+      // context API 방식
+      selectDiary(id);
+      navigation.push("DiaryUpdate");
+    },
+    [selectDiary, navigation]
+  );
+
+  const onDetailScreen = React.useCallback(
+    (diary) => {
+      // route params 방식
+      navigation.push("DiaryDetail", diary);
+    },
+    [navigation]
+  );
+
+  return (
+    <DiaryHome
+      {...{ navigation, diaries, onUpdateScreen, onDetailScreen, onDelete }}
+    />
+  );
 }
 
 export { DiaryHomeContainer };
