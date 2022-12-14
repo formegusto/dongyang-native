@@ -11,7 +11,9 @@ function ExRateInput({ mode, onCalc }) {
     <Wrap>
       <PrefixText>{mode === "DtoW" ? "$" : "₩"}</PrefixText>
       <Input
-        placeholder="달러를 입력해주세요."
+        placeholder={
+          mode === "DtoW" ? "달러를 입력해주세요." : "원화를 입력해주세요."
+        }
         value={input}
         onChangeText={onChange}
       />

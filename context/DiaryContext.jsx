@@ -11,7 +11,7 @@ export const DiaryContext = React.createContext({
   onDelete: () => {},
   onUpdate: () => {},
   selectDiary: () => {},
-  // load: () => {},
+  load: () => {},
 });
 
 export function DiaryProvider({ children }) {
@@ -24,15 +24,19 @@ export function DiaryProvider({ children }) {
     [diaries, selectedId]
   );
 
-  const appendDiary = React.useCallback(({ content, date }) => {
-    if (!DateTime.fromISO(date).isValid) {
-      alert("유효하지 않은 날짜 형식입니다.\nex) 1996-10-02");
-      return;
-    }
-    setDiaries((prev) =>
-      _.sortBy(
+  const store = React.useCallback((newDiaries) => {
+    setItem("diary", newDiaries);
+  }, []);
+
+  const appendDiary = React.useCallback(
+    ({ content, date }) => {
+      if (!DateTime.fromISO(date).isValid) {
+        alert("유효하지 않은 날짜 형식입니다.\nex) 1996-10-02");
+        return;
+      }
+      const newDiaries = _.sortBy(
         [
-          ...prev,
+          ...diaries,
           {
             id: new Date().getTime(),
             content,
@@ -41,22 +45,26 @@ export function DiaryProvider({ children }) {
           },
         ],
         "date"
-      )
-    );
-  }, []);
+      );
+      setDiaries(newDiaries);
+      store(newDiaries);
+    },
+    [diaries, store]
+  );
 
-  const onDelete = React.useCallback((deletedId) => {
-    setDiaries((prev) => _.reject(prev, ({ id }) => id === deletedId));
-  }, []);
+  const onDelete = React.useCallback(
+    (deletedId) => {
+      const newDiaries = _.reject(diaries, ({ id }) => id === deletedId);
+      setDiaries(newDiaries);
+      store(newDiaries);
+    },
+    [diaries, store]
+  );
 
-  const selectDiary = React.useCallback((id) => {
-    setSelectedId(id);
-  }, []);
-
-  const onUpdate = React.useCallback((updatedId, input) => {
-    setDiaries((prev) =>
-      _.sortBy(
-        produce(prev, (draft) => {
+  const onUpdate = React.useCallback(
+    (updatedId, input) => {
+      const newDiaries = _.sortBy(
+        produce(diaries, (draft) => {
           const idx = _.findIndex(draft, ({ id }) => id === updatedId);
           draft[idx] = {
             ...draft[idx],
@@ -64,15 +72,18 @@ export function DiaryProvider({ children }) {
           };
         }),
         "date"
-      )
-    );
+      );
+      setDiaries(newDiaries);
+      store(newDiaries);
+    },
+    [diaries, store]
+  );
+
+  const selectDiary = React.useCallback((id) => {
+    setSelectedId(id);
   }, []);
 
-  React.useEffect(() => {
-    if (diaries) setItem("diary", diaries);
-  }, [diaries]);
-
-  React.useEffect(() => {
+  const load = React.useCallback(() => {
     getItem("diary", setDiaries, []);
   }, []);
 
@@ -85,6 +96,7 @@ export function DiaryProvider({ children }) {
         onUpdate,
         selectDiary,
         selectedDiary,
+        load,
       }}>
       {children}
     </DiaryContext.Provider>
